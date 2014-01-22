@@ -1,0 +1,52 @@
+import com.nolimitscoaster.*;
+
+// OnBoardAudio script by Kevin Stone
+// 
+// 1. Place your .ogg file in the same directory as your park file.
+// 2. Change "mymusic.ogg" to your music file.
+// 3. Change "My Coaster" to the name of the coaster you want the music to play on.
+// 4. Save this file as onboardaudio.nlvm
+// 5. Attach the script file to the coaster in the Coaster Properties dialog.
+//
+// This is a simple script so streamed sound will start playing at the same time for all trains.
+// It is most useful for generic looping audio.
+
+public class onboardaudio extends Script
+{
+	private static final String filename = "mymusic.ogg";
+	private static final String coastername = "My Coaster";
+	
+	Train train;
+	Coaster coaster;
+	
+	public bool onInit()
+	{
+		// Get handle for streamed sound.
+		StreamedSound mysound = StreamedSound.loadFromFile(filename);
+		if (mysound == null)
+		{
+			System.err.println("The specified file '" + filename + "' was not found.");
+			return false;
+		}
+		
+		// Get handle for coaster.
+		coaster = sim.getCoaster(coastername);
+		if (coaster == null)
+		{
+			System.err.println("The specified coaster '" + coastername + "' was not found.");
+			return false;
+		}
+		
+		// Attach the streamed sound to all trains on the coaster.
+		int traincount = coaster.getTrainCount();
+		for(int i=0; i<=traincount-1; i++)
+		{
+			train = coaster.getTrainAt(i);
+			train.setOnboardStreamedSound(mysound);	
+		}
+		
+		mysound.playLoop();
+		
+		return true;
+	}
+} 
