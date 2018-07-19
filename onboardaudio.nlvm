@@ -13,8 +13,8 @@ import com.nolimitscoaster.*;
 
 public class onboardaudio extends Script
 {
-	private static final String filename = "mymusic.ogg";
-	private static final String coastername = "My Coaster";
+	private static final String filename = "0dnojq1BIyNqa89hFEqBvM.ogg";
+	private static final String coastername = "Incredicoaster";
 	
 	Train train;
 	Coaster coaster;
